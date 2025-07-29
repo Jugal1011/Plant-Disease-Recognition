@@ -10,5 +10,8 @@ COPY . /app
 # Install dependencies (if any)
 RUN pip install -r requirements.txt
 
+# Download the model file
+RUN python download_model.py
+
 # Specify the command to run your application
 CMD ["python", "app.py"]

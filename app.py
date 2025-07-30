@@ -4,6 +4,9 @@ import cv2
 from tensorflow.keras.models import load_model
 import os
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -52,5 +55,5 @@ def predict():
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
-    # Use Flask 2.3 style app run
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # defaults to 5000 if PORT not set
+    app.run(debug=False, host='0.0.0.0', port=port)

@@ -10,9 +10,6 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Load the pre-trained model
-model = load_model('./model/plant-disease-recognition.hdf5')
-
 # Define your classes (replace these with your actual class labels)
 class_labels = {
     0: "Healthy",
@@ -40,6 +37,8 @@ def predict():
         return jsonify({'error': 'No selected file'})
 
     try:
+        # Load the pre-trained model
+        model = load_model('./model/plant-disease-recognition.hdf5')
         filename = secure_filename(file.filename)
         file_bytes = np.frombuffer(file.read(), np.uint8)
         image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
